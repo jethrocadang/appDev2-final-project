@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorecategoryRequest extends FormRequest
+class StoreCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,14 @@ class StorecategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name'=> 'required|max:255',
+        ];
+    }
+
+    public function messages():array 
+    {
+        return [
+            'name.required' => 'Enter a Category Name.'
         ];
     }
 }
