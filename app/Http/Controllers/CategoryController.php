@@ -52,7 +52,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $deleted_category = $category->name;
+        $deleted_category = $category->na;
         $category->tasks()->detach();
         $category->delete();
 

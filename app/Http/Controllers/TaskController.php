@@ -14,24 +14,19 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = Task::all();
-
         return response()->json($tasks);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        
-    }
+
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreTaskRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $task = Task::create($validated);
+        return response()->json($task);
     }
 
     /**

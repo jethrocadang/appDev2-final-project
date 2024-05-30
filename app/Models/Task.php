@@ -11,11 +11,16 @@ class Task extends Model
 {
     use HasFactory;
 
+
+    protected $fillable = ['title','description', 'completed', 'due_date'];
+
+    // Many to Many with categories
     public function categories(): BelongsToMany 
     {
         return $this->belongsToMany(Category::class, 'categories_tasks');
     }
 
+    //One to Many with users
     public function users(): BelongsTo
     {
         return $this->belongsTo(User::class);
