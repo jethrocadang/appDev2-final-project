@@ -12,7 +12,7 @@ class Task extends Model
     use HasFactory;
 
 
-    protected $fillable = ['title','description', 'completed', 'due_date'];
+    protected $fillable = ['title','description', 'due_date', 'category_id', 'user_id'];
 
     // Many to Many with categories
     public function categories(): BelongsToMany 

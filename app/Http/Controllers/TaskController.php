@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Http\Resources\TaskResource;
 use App\Models\Task;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -13,34 +15,34 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
-        return response()->json($tasks);
+        return TaskResource::collection(
+            Task::where('user_id', Auth::user()->id)->get()
+        );
     }
-
-
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreTaskRequest $request)
     {
-        $validated = $request->validated();
-        $task = Task::create($validated);
-        return response()->json($task);
+        $request->validated();
+
+        $task = Task::create([
+            'user_id' => Auth::user()->id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'due_date' => $request->due_date,
+        ]);
+
+        $task->categories()->attach($request->category_id);
+
+        return new TaskResource($task);
     }
 
     /**
      * Display the specified resource.
      */
     public function show(Task $task)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Task $task)
     {
         //
     }
