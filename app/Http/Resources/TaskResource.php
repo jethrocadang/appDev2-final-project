@@ -19,9 +19,9 @@ class TaskResource extends JsonResource
             'attributes' => [
                 'title' => $this->title,
                 'description' => $this->description,
-                'due_date' => $this->due_date,
-                'created_at' => $this->created_at,
-                'updated_at' => $this->updated_at,
+                'dueDate' => $this->due_date,
+                'createdAt' => $this->created_at,
+                'updatedAt' => $this->updated_at,
             ],
             'relationships' => [
                 'categories' => $this->categories->map(function ($category) {
@@ -29,8 +29,8 @@ class TaskResource extends JsonResource
                         'id' => (string) $category->id,
                         'attributes' => [
                             'name' => $category->name,
-                            'created_at' => $category->created_at,
-                            'updated_at' => $category->updated_at,
+                            'createdAt' => $category->created_at,
+                            'updatedAt' => $category->updated_at,
                         ]
                     ];
                 })
