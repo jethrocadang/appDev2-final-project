@@ -6,10 +6,12 @@ use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
+use App\Traits\HttpResponses;
 use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
+    use HttpResponses;
     /**
      * Display a listing of the resource.
      */
@@ -44,7 +46,11 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        //
+        if (Auth::user()->id !== $task->user_id) {
+            return $this->error('', 'You are not authorize to access this request!', 403);
+        }
+
+        return new TaskResource($task);
     }
 
     /**
@@ -52,7 +58,17 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
-        //
+        $request->validated();
+
+        $task = Task::updateOrCreate([
+            'user_id' => Auth::user()->id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'due_date' => $request->due_date,
+        ]);
+
+        $task->categories()->attach($request->category_id);
+        return new TaskResource($task);
     }
 
     /**
@@ -60,6 +76,12 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        if (Auth::user()->id !== $task->user_id) {
+            return $this->error('', 'You are not authorize to access this request!', 403);
+        } else {
+            $task->delete();
+        }
+
+        return response(null, 204);
     }
 }

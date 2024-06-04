@@ -11,7 +11,7 @@ class UpdateTaskRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,20 @@ class UpdateTaskRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        $method = $this->method();
+        if ($method == 'PUT') {
+            return [
+                'title' => ['required', 'max:255'],
+                'description' => ['required'],
+                'due_date' => ['required', 'date']
+            ];
+        } else {
+            return [
+                'title' => ['sometimes', 'required', 'max:255'],
+                'description' => ['sometimes', 'required'],
+                'due_date' => ['sometimes', 'date']
+
+            ];
+        }
     }
 }

@@ -22,10 +22,9 @@ class StoreTaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required | max:255',
-            'description' => 'required',
-            'due_date' => 'date'
-
+            'title' => ['required', 'max:255'],
+            'description' => ['required'],
+            'due_date' => ['required', 'date']
         ];
     }
 }
