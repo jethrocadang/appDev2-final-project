@@ -42,25 +42,26 @@
     }
    
    ```
+
     - PUT | Update a single Task => api/tasks/:id
+
     ```bash
     task {
         "title" : "string",
         "description" : "string",
         "due_date" : "string"
     }
-   
    ```
+
      - PATCH | Updates a single Field on TASK => api/tasks/:id
 
      ```bash
-    task {
+      task {
         "title" : "string | optional",
         "description" : "string | optional",
         "due_date" : "string |optional"
     }
-   
-   ```
+     ```
 
    3. Categories
      
