@@ -6,12 +6,15 @@ use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use App\Services\AuthService;
+use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+
+    use HttpResponses;
 
     public function login(LoginUserRequest $request)
     {
@@ -38,6 +41,8 @@ class AuthController extends Controller
 
     public function logout()
     {
-        return response()->json('logout');
+        Auth::user()->currentAccessToken()->delete();
+
+        return $this->success(['message' => 'Logged-out!']);
     }
 }
