@@ -11,14 +11,75 @@
 ## HTTP Requests
 
  1. Users  
-    - POST | Register User 
+    - POST | Register User => api/register
     ```bash
-     users {
+     user {
         "first_name": "string",
         "last_name" :"string",
         "email" : "string",
         "password" : "string"
      }
     ```
+    - POST | Login => api/login
+    ```bash
+    user {
+        "email" : "string",
+        "password" : "string"
+    }
+    ```
+    - POST | Logout => api/logout
+
+
+ 2. Tasks
+   - GET | Retrieve all tasks => api/tasks
+   - GET | Retrive a Single tasks => api/tasks/:id
+   - POST | Create Task => api/tasks
+   ```bash
+    task {
+        "title" : "string",
+        "description" : "string",
+        "due_date" : "string"
+    }
+   
+   ```
+   - PUT | Update a single Task => api/tasks/:id
+    ```bash
+    task {
+        "title" : "string",
+        "description" : "string",
+        "due_date" : "string"
+    }
+   
+   ```
+    - PATCH | Updates a single Field on TASK => api/tasks/:id
+     ```bash
+    task {
+        "title" : "string | optional",
+        "description" : "string | optional",
+        "due_date" : "string |optional"
+    }
+   
+   ```
+
+   3. Categories
+     
+     - GET | Retrieve all categories => api/categories
+     - GET | Retrieve a single record => api/categories/:id
+     - POST | Create a single category => api/categories
+
+     ```bash 
+     category {
+        "name" : "string"
+     }
+
+     ```
+
+     -PUT | update a category => api/categories/:id
+     ```bash 
+     category {
+        "name" : "string"
+     }
+
+     ``` 
 
 
