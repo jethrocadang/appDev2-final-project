@@ -31,9 +31,9 @@
 
 
  2. Tasks
-   - GET | Retrieve all tasks => api/tasks
-   - GET | Retrive a Single tasks => api/tasks/:id
-   - POST | Create Task => api/tasks
+    - GET | Retrieve all tasks => api/tasks
+    - GET | Retrive a Single tasks => api/tasks/:id
+    - POST | Create Task => api/tasks
    ```bash
     task {
         "title" : "string",
@@ -42,7 +42,7 @@
     }
    
    ```
-   - PUT | Update a single Task => api/tasks/:id
+    - PUT | Update a single Task => api/tasks/:id
     ```bash
     task {
         "title" : "string",
@@ -51,7 +51,8 @@
     }
    
    ```
-    - PATCH | Updates a single Field on TASK => api/tasks/:id
+     - PATCH | Updates a single Field on TASK => api/tasks/:id
+
      ```bash
     task {
         "title" : "string | optional",
@@ -63,9 +64,9 @@
 
    3. Categories
      
-     - GET | Retrieve all categories => api/categories
-     - GET | Retrieve a single record => api/categories/:id
-     - POST | Create a single category => api/categories
+      - GET | Retrieve all categories => api/categories
+      - GET | Retrieve a single record => api/categories/:id
+      - POST | Create a single category => api/categories
 
      ```bash 
      category {
@@ -74,7 +75,7 @@
 
      ```
 
-     -PUT | update a category => api/categories/:id
+      - PUT | update a category => api/categories/:id
      ```bash 
      category {
         "name" : "string"
