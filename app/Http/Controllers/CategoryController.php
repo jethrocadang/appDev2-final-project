@@ -6,18 +6,25 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
-use Illuminate\Http\Request;
+use App\Traits\HttpResponses;
 use Illuminate\Support\Facades\Auth;
+use Exception;
 
 class CategoryController extends Controller
 {
+
+    use HttpResponses;
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         return CategoryResource::collection(
-            Category::all()
+            // Category::all()
+            Category::whereHas('tasks', function ($query) {
+                $query->where('user_id', Auth::user()->id);
+            })->get()
         );
     }
 
@@ -33,16 +40,13 @@ class CategoryController extends Controller
      * Display the specified resource.
      */
     public function show(Category $category)
-    {  
-        $data = Category::whereHas('tasks', function ($query) {
+    {
+        $category = Category::whereHas('tasks', function ($query) {
             $query->where('user_id', Auth::user()->id);
         })->findOrFail($category->id);
 
-        if(!$data){
-            return $this->error('', 'You are not authorize to access this request!', 403);
-        }
+        return new CategoryResource($category);
 
-        return new CategoryResource($data) ;
     }
 
     /**
@@ -51,11 +55,8 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         $request->validated();
-
         $category->update($request->all());
-
-        $category->tasks()->attach($request->task_id);
-
+        
         return new CategoryResource($category);
     }
 
@@ -64,5 +65,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $category->delete();
+
+        return response(null, 204);
     }
 }
