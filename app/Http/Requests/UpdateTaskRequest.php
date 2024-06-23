@@ -26,15 +26,21 @@ class UpdateTaskRequest extends FormRequest
             return [
                 'title' => ['required', 'max:255'],
                 'description' => ['required'],
-                'due_date' => ['required', 'date']
+                'due_date' => ['required', 'date'],
+                'category_id' => ['required', 'array'],
+                'category_id.*' => ['exists:categories,id']
             ];
-        } else {
+        };
+
+        if ($method == 'PATCH') {
             return [
                 'title' => ['sometimes', 'required', 'max:255'],
                 'description' => ['sometimes', 'required'],
-                'due_date' => ['sometimes', 'date']
-
+                'due_date' => ['sometimes', 'date'],
+                'category_id' => ['sometimes', 'array'],
+                'category_id.*' => ['exists:categories,id']
             ];
-        }
+        };
+
     }
 }

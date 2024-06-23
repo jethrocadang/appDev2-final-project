@@ -60,14 +60,15 @@ class TaskController extends Controller
     {
         $request->validated();
 
-        $task = Task::updateOrCreate([
+        $task->update([
             'user_id' => Auth::user()->id,
             'title' => $request->title,
             'description' => $request->description,
             'due_date' => $request->due_date,
         ]);
+    
 
-        $task->categories()->attach($request->category_id);
+        $task->categories()->sync($request->category_id);
         return new TaskResource($task);
     }
 

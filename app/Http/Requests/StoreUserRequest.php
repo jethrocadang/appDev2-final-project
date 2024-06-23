@@ -28,12 +28,4 @@ class StoreUserRequest extends FormRequest
             'password' => 'required|confirmed'
         ];
     }
-
-    public function messages()
-    {
-        return [
-            'first_name.required' => 'Panget si Erish',
-
-        ];
-    }
 }

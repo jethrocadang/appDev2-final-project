@@ -27,8 +27,8 @@ Route::POST('/login', [AuthController::class, 'login']);
 Route::POST('/register', [AuthController::class, 'register']);
 
 //Protected
+Route::apiResource('users', UserController::class);
 Route::group(['middleware' => ['auth:sanctum']], function(){
-    Route::apiResource('users', UserController::class);
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('tasks', TaskController::class);
     Route::POST('/logout', [AuthController::class, 'logout']);

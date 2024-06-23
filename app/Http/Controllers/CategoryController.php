@@ -22,9 +22,9 @@ class CategoryController extends Controller
     {
         return CategoryResource::collection(
             // Category::all()
-            Category::whereHas('tasks', function ($query) {
+            Category::with(['tasks' => function ($query) {
                 $query->where('user_id', Auth::user()->id);
-            })->get()
+            }])->get()
         );
     }
 
